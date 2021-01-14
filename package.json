@@ -1,0 +1,21 @@
+{
+  "name": "messagesender",
+  "version": "1.0.0",
+  "description": "This is just a simple message sending Applications",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Sachin Acharya",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.4.11",
+    "nodemon": "^2.0.4"
+  }
+}

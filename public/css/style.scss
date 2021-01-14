@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lobster&family=Oswald&family=Roboto&family=Teko&family=Trade+Winds&display=swap');
+//Google Fonts Shortcuts
+$anton: 'Anton', sans-serif;
+$lobster: 'Lobster', cursive;
+$oswald: 'Oswald', sans-serif;
+$roboto: 'Roboto', sans-serif;
+$teko: 'Teko', sans-serif;
+$tradeWinds: 'Trade Winds', cursive;
+$color: rgb(7, 9, 114);
+//Basic Formating
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: 0 -100px;
+}
+
+.main{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    h1{
+        padding: 10px;
+        font-family: $oswald;
+        text-align: center;
+        color: rgba(rgb(97, 96, 96),0.9);
+    }
+
+    div{
+        height: 50px;
+        width: 100%;
+        margin: 10px 0px;
+    }
+
+    input,textarea{
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        outline: none;
+        background: transparent;
+        border: 2px solid $color;
+        border-radius: 3px;
+    }
+
+    label{
+        color: rgba(rgb(97, 96, 96),0.9);
+        display: block;
+        font-family: sans-serif;
+        font-size: 15px;
+        background: white;
+        width: fit-content;
+        margin-top: -28px;
+        margin-left: 10px;
+        pointer-events: none;
+        padding: 0px -2px;
+        transition: 0.5s all ease-in-out;
+
+    }
+
+    .messageArea{
+        height: 100px;
+        textarea{
+            height: 100px;
+            z-index: 0;
+            font-family: $roboto;
+            font-size: 12px;
+            resize: none;
+        }
+        label{
+            margin-top: -88px;
+            margin-left: 11px;
+            font-size: 12px;
+            width: fit-content;
+            font-size: 15px;
+            z-index: 1;
+            transform: translateZ(10px);
+            &::after{
+                content: "...";
+            }
+        }
+        
+        textarea:focus ~ label, textarea:valid ~label{
+            margin-top: -106px;
+            font-size: 12px;
+            &::after{
+                content: "";
+            }
+        }
+    }
+
+
+    input:focus ~ label, input:valid ~ label{
+        margin-top: -45px;
+        font-size: 12px;
+    }
+
+    input[name='name']{
+        text-transform: capitalize;
+    }
+}
+
+.fullName{
+    label::after{
+        content: " (Your)";
+    }
+    input:valid ~ label::after,input:focus ~ label::after{
+        content: "";
+    }
+}
+
+.emailAddress{
+    label::after{
+        content: " (To)";
+    }
+    input:valid ~ label::after,input:focus ~ label::after{
+        content: "";
+    }
+}
+
+.send{
+    font-size: 17px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    &:hover{
+        animation: name 2s infinite alternate;
+    }
+}
+
+
+@keyframes name{
+    0%{
+        border-radius: 50px 10px 10px 10px;
+    }25%{
+        border-radius: 10px 50px 10px 10px;
+    }50%{
+        border-radius: 10px 10px 50px 10px;
+    }
+    75%{
+        border-radius: 10px 10px 10px 50px;
+    }
+}
+
+.attachmentDivision{
+    p{
+        height: 100%;
+        width: 100%;
+        border: 2px solid $color;
+        border-radius: 3px;
+        font-size: 12px;
+        z-index: -1px;
+        padding: 5px;
+        cursor: pointer;
+        overflow: hidden;
+        overflow-y: visible;
+        font-family: sans-serif;
+    }
+
+    input{
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    label{
+        margin-top: -80px;
+        transform: translateZ(10px);
+    }
+
+    input:valid ~ label,input:focus ~ label{
+        margin-top: -100px;
+    }
+}
