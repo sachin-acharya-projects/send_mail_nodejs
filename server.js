@@ -22,7 +22,10 @@ const app = express()
 
 app.set('view engine','ejs');
 app.use(express.static(`public`));
-app.use(upload())
+app.use(upload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
+}))
 
 //GETING Request from Server
 app.get("/",function(req,res){
@@ -33,16 +36,16 @@ app.post('/login', urlencodedParser, function (req, res) {
     if(req.files){
         const file = req.files.attach;
         const fileName = file.name;
-        file.mv(`${__dirname}/public/imgs/${fileName}`,(err)=>{
-            if(err){
-                console.log(err);
-            }else{
-                console.log("File has been Sent");
-            }
-        })
-        
+        // When using temporary file location, no need to copy file
+        // file.mv(`${__dirname}/public/imgs/${fileName}`,(err)=>{
+        //     if(err){
+        //         console.log(err);
+        //     }else{
+        //         console.log("File has been Sent");
+        //     }
+        // })
         function NameOfFile(){
-            return fileName;
+            return [fileName, file.tempFilePath];
         };
     }
 
@@ -102,8 +105,8 @@ app.post('/login', urlencodedParser, function (req, res) {
         </body>
         </html>`,
         attachments: [{
-            filename: NameOfFile(),
-            path: `${__dirname}/public/imgs/${NameOfFile()}`,
+            filename: NameOfFile()[0],
+            path: `${NameOfFile()[1]}`,
             cid: 'unique@nodemailer.com' //same cid value as in the html img src
         }]
         
@@ -112,7 +115,7 @@ app.post('/login', urlencodedParser, function (req, res) {
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
-          res.send(`<h1 style="font-size: 20px;color: red;text-align: center;width: 100%;font-family: sans-serif;padding: 30px;">Sorry Your Message couldn't be Sent May Be the Reasons are: <br> ${error}</h1>`)
+          res.send(`<h1 style="font-size: 20px;color: red;text-align: center;width: 100%;font-family: sans-serif;padding: 30px;">Sorry, Your Message couldn't be Sent May Be the Reasons are: <br> ${error}</h1> <br> <a href='/' style='display: block;width: 100%;text-align: center;'>Go Back</a>`)
         } else {
             res.sendFile(`${__dirname}/views/index.html`)
         }
